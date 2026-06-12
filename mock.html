@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>World Cup 2026 AI Command Center</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+--bg:#07111f;
+--card:#0f1b2d;
+--card2:#13233a;
+--accent:#2dd4ff;
+--text:#eef4ff;
+--muted:#8ea3c0;
+--border:rgba(255,255,255,.08);
+}
+*{box-sizing:border-box;font-family:Inter,sans-serif}
+body{
+margin:0;
+background:radial-gradient(circle at top right,#14345d 0%,#07111f 45%);
+color:var(--text);
+}
+.sidebar{
+position:fixed;left:0;top:0;bottom:0;width:260px;
+background:rgba(8,17,31,.95);
+backdrop-filter:blur(15px);
+border-right:1px solid var(--border);
+padding:28px;
+}
+.logo{font-size:28px;font-weight:800}
+.logo span{color:var(--accent)}
+.small{color:var(--muted);margin-top:8px;font-size:13px}
+.nav{margin-top:40px}
+.nav div{
+padding:14px 16px;border-radius:14px;margin-bottom:10px;
+background:rgba(255,255,255,.03)
+}
+.nav .active{
+background:linear-gradient(90deg,#1a3557,#0d2039);
+border:1px solid rgba(45,212,255,.3);
+}
+.main{margin-left:260px;padding:32px}
+.hero{
+display:grid;grid-template-columns:2fr 1fr;gap:20px;
+}
+.panel{
+background:rgba(15,27,45,.9);
+border:1px solid var(--border);
+border-radius:24px;
+padding:24px;
+backdrop-filter:blur(10px);
+}
+.title{font-size:42px;font-weight:800}
+.subtitle{color:var(--muted);margin-top:10px}
+.kpis{
+display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:22px
+}
+.kpi{
+background:rgba(255,255,255,.03);
+padding:18px;border-radius:18px
+}
+.kpi .v{font-size:30px;font-weight:800}
+.kpi .l{color:var(--muted);font-size:12px}
+.status{display:flex;justify-content:space-between;margin-top:18px}
+.dot{width:10px;height:10px;border-radius:50%;background:#38ff90;display:inline-block}
+.section{
+display:grid;grid-template-columns:1.5fr 1fr;gap:20px;margin-top:20px
+}
+.match{
+display:flex;justify-content:space-around;align-items:center;padding:30px 0
+}
+.team{text-align:center}
+.flag{font-size:70px}
+.team h2{margin:8px 0}
+.lambda{color:var(--accent);font-weight:700}
+.vs{font-size:34px;color:var(--muted)}
+button{
+width:100%;padding:18px;border:none;border-radius:16px;
+background:linear-gradient(90deg,#22d3ee,#3b82f6);
+font-weight:800;color:white;font-size:16px
+}
+.bar{height:12px;background:#1c2c43;border-radius:50px;overflow:hidden;margin-bottom:18px}
+.fill{height:100%;background:linear-gradient(90deg,#22d3ee,#3b82f6)}
+.grid{
+display:grid;grid-template-columns:repeat(5,1fr);
+gap:8px;margin-top:20px
+}
+.cell{
+aspect-ratio:1;background:#17304f;border-radius:10px;
+display:flex;align-items:center;justify-content:center
+}
+.hot{background:#2dd4ff;color:#07111f;font-weight:800}
+.bracket{
+margin-top:20px;display:flex;justify-content:space-between;color:var(--muted)
+}
+.round{
+background:rgba(255,255,255,.03);
+padding:14px;border-radius:14px;width:22%
+}
+</style>
+</head>
+<body>
+
+<div class="sidebar">
+<div class="logo">WC26 <span>AI</span></div>
+<div class="small">World Cup Command Center</div>
+
+<div class="nav">
+<div class="active">🏆 Tournament</div>
+<div>⚽ Match Predictor</div>
+<div>🌎 Simulator</div>
+<div>📊 Analytics</div>
+<div>🧠 Explainability</div>
+<div>🎯 Betting Edge</div>
+<div>⚙ Settings</div>
+</div>
+</div>
+
+<div class="main">
+
+<div class="hero">
+
+<div class="panel">
+<div class="title">World Cup 2026 AI Command Center</div>
+<div class="subtitle">
+Poisson Simulations · xG Models · Monte Carlo Engine · SHAP Explainability
+</div>
+
+<div class="kpis">
+<div class="kpi"><div class="v">100K</div><div class="l">SIMULATIONS</div></div>
+<div class="kpi"><div class="v">104</div><div class="l">MATCHES</div></div>
+<div class="kpi"><div class="v">48</div><div class="l">TEAMS</div></div>
+<div class="kpi"><div class="v">71%</div><div class="l">MODEL ACCURACY</div></div>
+</div>
+</div>
+
+<div class="panel">
+<h3>Mission Status</h3>
+<div class="status"><span>Poisson Engine</span><span><span class="dot"></span> ACTIVE</span></div>
+<div class="status"><span>Monte Carlo</span><span><span class="dot"></span> ACTIVE</span></div>
+<div class="status"><span>SHAP Engine</span><span><span class="dot"></span> ACTIVE</span></div>
+<div class="status"><span>Live Predictions</span><span><span class="dot"></span> ACTIVE</span></div>
+</div>
+
+</div>
+
+<div class="section">
+
+<div class="panel">
+<h2>Featured Match Prediction</h2>
+
+<div class="match">
+<div class="team">
+<div class="flag">🇲🇽</div>
+<h2>Mexico</h2>
+<div class="lambda">λ = 1.34</div>
+</div>
+
+<div class="vs">VS</div>
+
+<div class="team">
+<div class="flag">🇦🇷</div>
+<h2>Argentina</h2>
+<div class="lambda">λ = 2.11</div>
+</div>
+</div>
+
+<button>RUN 100,000 SIMULATIONS</button>
+
+<h3 style="margin-top:22px">Poisson Score Matrix</h3>
+<div class="grid">
+<div class="cell">0-0</div>
+<div class="cell">0-1</div>
+<div class="cell hot">0-2</div>
+<div class="cell">0-3</div>
+<div class="cell">0-4</div>
+<div class="cell">1-0</div>
+<div class="cell hot">1-1</div>
+<div class="cell">1-2</div>
+<div class="cell">1-3</div>
+<div class="cell">1-4</div>
+</div>
+</div>
+
+<div class="panel">
+<h2>Win Probability</h2>
+
+<p>Mexico 22%</p>
+<div class="bar"><div class="fill" style="width:22%"></div></div>
+
+<p>Draw 17%</p>
+<div class="bar"><div class="fill" style="width:17%"></div></div>
+
+<p>Argentina 61%</p>
+<div class="bar"><div class="fill" style="width:61%"></div></div>
+
+<hr style="border-color:rgba(255,255,255,.08);margin:25px 0">
+
+<h2>World Cup Favorites</h2>
+<p>🇧🇷 Brazil — 21.8%</p>
+<p>🇦🇷 Argentina — 18.4%</p>
+<p>🇪🇸 Spain — 12.2%</p>
+<p>🇫🇷 France — 11.9%</p>
+<p>🏴 England — 8.3%</p>
+</div>
+
+</div>
+
+<div class="panel">
+<h2>Tournament Simulator</h2>
+<div class="bracket">
+<div class="round"><b>Round of 16</b><br><br>16 Teams</div>
+<div class="round"><b>Quarterfinals</b><br><br>8 Teams</div>
+<div class="round"><b>Semifinals</b><br><br>4 Teams</div>
+<div class="round"><b>Final</b><br><br>1 Champion</div>
+</div>
+</div>
+
+</div>
+</body>
+</html>

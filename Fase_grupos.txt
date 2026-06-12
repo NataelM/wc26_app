@@ -1,0 +1,73 @@
+Partido,Sede,OV_A,DV_A,MV_A,FA_A,OV_B,DV_B,MV_B,FA_B
+México_vs_Sudáfrica,Ciudad de México (Altitud),84,73,227.99,1.0,53,46,23.4,0.8
+Corea del Sur_vs_República Checa,Guadalajara (Altitud),76,59,185.5,0.85,68,66,165.3,0.85
+Canadá_vs_Bosnia y Herzegovina,Toronto (Neutro),74,68,151.0,1.0,70,58,46.5,0.95
+Estados Unidos_vs_Paraguay,Los Angeles (Neutro),80,74,387.3,1.0,73,72,115.4,0.95
+Qatar_vs_Suiza,Santa Clara (Neutro),59,51,19.8,0.9,81,88,359.3,0.95
+Brasil_vs_Marruecos,East Rutherford (Neutro),91,96,947.0,0.95,83,90,522.1,0.9
+Haití_vs_Escocia,Foxborough (Neutro),45,39,7.8,0.95,70,67,178.9,0.95
+Australia_vs_Turquía,Vancouver (Neutro),69,60,58.2,0.9,87,77,478.1,0.95
+Alemania_vs_Curazao,Houston (Humedad/Calor),92,84,1010.0,0.85,42,36,9.5,0.95
+Países Bajos_vs_Japón,Arlington (Techo Cerrado),93,85,782.5,0.95,78,79,275.6,0.9
+Costa de Marfil_vs_Ecuador,Filadelfia (Neutro),80,70,547.5,0.9,86,81,385.65,0.95
+Suecia_vs_Túnez,Guadalupe (Calor/Altitud Moderada),65,65,473.7,0.85,71,71,39.8,0.85
+España_vs_Cabo Verde,Atlanta (Techo Cerrado),99,94,1360.0,0.95,47,41,16.2,0.9
+Bélgica_vs_Egipto,Seattle (Neutro),85,76,589.9,0.95,64,62,49.1,0.9
+Arabia Saudita_vs_Uruguay,Miami Gardens (Humedad/Calor),62,54,34.1,0.85,77,87,365.0,0.95
+Irán_vs_Nueva Zelanda,Los Angeles (Neutro),71,75,53.6,0.9,51,45,14.7,0.9
+Francia_vs_Senegal,East Rutherford (Neutro),98,99,1530.0,0.95,82,82,498.3,0.9
+Irak_vs_Noruega,Foxborough (Neutro),49,43,11.3,0.9,81,64,754.2,0.95
+Argentina_vs_Argelia,Kansas City (Calor),97,98,928.2,0.95,74,61,142.8,0.9
+Austria_vs_Jordania,Santa Clara (Neutro),75,78,182.5,0.95,61,53,30.0,0.9
+Ghana_vs_Panamá,Toronto (Neutro),55,48,128.5,0.9,72,63,42.3,0.95
+Inglaterra_vs_Croacia,Arlington (Techo Cerrado),96,86,1520.0,0.95,88,89,406.08,0.95
+Portugal_vs_RD Congo,Houston (Humedad/Calor),95,95,1220.0,0.9,60,52,28.7,0.85
+Uzbekistán_vs_Colombia,Ciudad de México (Altitud),63,55,31.5,0.8,89,83,315.7,0.9
+República Checa_vs_Sudáfrica,Atlanta (Techo Cerrado),68,66,165.3,0.95,53,46,23.4,0.9
+Suiza_vs_Bosnia y Herzegovina,Los Angeles (Neutro),81,88,359.3,0.95,70,58,46.5,0.95
+Canadá_vs_Qatar,Vancouver (Neutro),74,68,151.0,1.0,59,51,19.8,0.85
+México_vs_Corea del Sur,Guadalajara (Altitud),84,73,227.99,1.0,76,59,185.5,0.85
+Estados Unidos_vs_Australia,Seattle (Neutro),80,74,387.3,1.0,69,60,58.2,0.9
+Escocia_vs_Marruecos,Foxborough (Neutro),70,67,178.9,0.95,83,90,522.1,0.9
+Brasil_vs_Haití,Filadelfia (Neutro),91,96,947.0,0.95,45,39,7.8,0.95
+Turquía_vs_Paraguay,Santa Clara (Neutro),87,77,478.1,0.95,73,72,115.4,0.95
+Países Bajos_vs_Suecia,Houston (Humedad/Calor),93,85,782.5,0.85,65,65,473.7,0.85
+Alemania_vs_Costa de Marfil,Toronto (Neutro),92,84,1010.0,0.95,80,70,547.5,0.9
+Ecuador_vs_Curazao,Kansas City (Calor),86,81,385.65,0.95,42,36,9.5,0.95
+Túnez_vs_Japón,Guadalupe (Calor/Altitud Moderada),71,71,39.8,0.85,78,79,275.6,0.85
+España_vs_Arabia Saudita,Atlanta (Techo Cerrado),99,94,1360.0,0.95,62,54,34.1,0.85
+Bélgica_vs_Irán,Los Angeles (Neutro),85,76,589.9,0.95,71,75,53.6,0.9
+Uruguay_vs_Cabo Verde,Miami Gardens (Humedad/Calor),77,87,365.0,0.95,47,41,16.2,0.85
+Nueva Zelanda_vs_Egipto,Vancouver (Neutro),51,45,14.7,0.9,64,62,49.1,0.9
+Argentina_vs_Austria,Arlington (Techo Cerrado),97,98,928.2,0.95,75,78,182.5,0.95
+Francia_vs_Irak,Filadelfia (Neutro),98,99,1530.0,0.95,49,43,11.3,0.9
+Noruega_vs_Senegal,East Rutherford (Neutro),81,64,754.2,0.95,82,82,498.3,0.9
+Jordania_vs_Argelia,Santa Clara (Neutro),61,53,30.0,0.9,74,61,142.8,0.9
+Inglaterra_vs_Ghana,Foxborough (Neutro),96,86,1520.0,0.95,55,48,128.5,0.9
+Panamá_vs_Croacia,Toronto (Neutro),72,63,42.3,0.95,88,89,406.08,0.95
+Portugal_vs_Uzbekistán,Houston (Humedad/Calor),95,95,1220.0,0.9,63,55,31.5,0.85
+Colombia_vs_RD Congo,Guadalajara (Altitud),89,83,315.7,0.95,60,52,28.7,0.85
+Escocia_vs_Brasil,Miami Gardens (Humedad/Calor),70,67,178.9,0.85,91,96,947.0,0.95
+Marruecos_vs_Haití,Atlanta (Techo Cerrado),83,90,522.1,0.9,45,39,7.8,0.95
+Suiza_vs_Canadá,Vancouver (Neutro),81,88,359.3,0.95,74,68,151.0,1.0
+Bosnia y Herzegovina_vs_Qatar,Seattle (Neutro),70,58,46.5,0.95,59,51,19.8,0.9
+República Checa_vs_México,Ciudad de México (Altitud),68,66,165.3,0.8,84,73,227.99,1.0
+Sudáfrica_vs_Corea del Sur,Guadalupe (Calor/Altitud Moderada),53,46,23.4,0.85,76,59,185.5,0.85
+Ecuador_vs_Alemania,East Rutherford (Neutro),86,81,385.65,0.95,92,84,1010.0,0.95
+Curazao_vs_Costa de Marfil,Filadelfia (Neutro),42,36,9.5,0.95,80,70,547.5,0.9
+Túnez_vs_Países Bajos,Kansas City (Calor),71,71,39.8,0.9,93,85,782.5,0.95
+Japón_vs_Suecia,Arlington (Techo Cerrado),78,79,275.6,0.9,65,65,473.7,0.95
+Estados Unidos_vs_Turquía,Los Angeles (Neutro),80,74,387.3,1.0,87,77,478.1,0.95
+Paraguay_vs_Australia,Santa Clara (Neutro),73,72,115.4,0.95,69,60,58.2,0.9
+Noruega_vs_Francia,Foxborough (Neutro),81,64,754.2,0.95,98,99,1530.0,0.95
+Senegal_vs_Irak,Toronto (Neutro),82,82,498.3,0.9,49,43,11.3,0.9
+Uruguay_vs_España,Guadalajara (Altitud),77,87,365.0,0.95,99,94,1360.0,0.85
+Cabo Verde_vs_Arabia Saudita,Houston (Humedad/Calor),47,41,16.2,0.85,62,54,34.1,0.85
+Nueva Zelanda_vs_Bélgica,Vancouver (Neutro),51,45,14.7,0.9,85,76,589.9,0.95
+Egipto_vs_Irán,Seattle (Neutro),64,62,49.1,0.9,71,75,53.6,0.9
+Panamá_vs_Inglaterra,East Rutherford (Neutro),72,63,42.3,0.95,96,86,1520.0,0.95
+Croacia_vs_Ghana,Filadelfia (Neutro),88,89,406.08,0.95,55,48,128.5,0.9
+Colombia_vs_Portugal,Miami Gardens (Humedad/Calor),89,83,315.7,0.95,95,95,1220.0,0.9
+RD Congo_vs_Uzbekistán,Atlanta (Techo Cerrado),60,52,28.7,0.9,63,55,31.5,0.9
+Argentina_vs_Jordania,Arlington (Techo Cerrado),97,98,928.2,0.95,61,53,30.0,0.9
+Argelia_vs_Austria,Kansas City (Calor),74,61,142.8,0.9,75,78,182.5,0.95
