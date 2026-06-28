@@ -2,6 +2,9 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import math
+import json
+import os
+from datetime import datetime
 import plotly.graph_objects as go
 import plotly.express as px
 from itertools import product
@@ -25,6 +28,7 @@ html, body, [class*="css"] { font-family: 'Inter', sans-serif; }
 .stApp {
     background: radial-gradient(circle at top right, #14345d 0%, #07111f 45%);
     color: #eef4ff;
+            
 }
 
 /* Sidebar */
@@ -322,6 +326,91 @@ def top_winners(df):
     return merged
 
 # ═══════════════════════════════════════════════════════════════════════════════
+# BAYESIAN MODEL — Poisson-Gamma para eliminación directa
+# ═══════════════════════════════════════════════════════════════════════════════
+HIPERPRIOR_PATH = "hiperprior_bayesiano.json"
+RESULTADOS_REALES_PATH = "resultados_reales.csv"
+RESULTADOS_ELIM_PATH = "resultados_eliminacion.json"
+
+RONDAS_ELIMINACION = ["Dieciseisavos de Final", "Octavos de Final", "Cuartos de Final", "Semifinal", "Final"]
+
+# Bracket oficial y ya confirmado de dieciseisavos (32 -> 16)
+BRACKET_R32 = [
+    ("Sudáfrica", "Canadá"), ("Brasil", "Japón"), ("Alemania", "Paraguay"), ("Países Bajos", "Marruecos"),
+    ("Costa de Marfil", "Noruega"), ("Francia", "Suecia"), ("México", "Ecuador"), ("Inglaterra", "RD Congo"),
+    ("Bélgica", "Senegal"), ("Estados Unidos", "Bosnia y Herzegovina"), ("España", "Austria"), ("Portugal", "Croacia"),
+    ("Suiza", "Argelia"), ("Australia", "Egipto"), ("Argentina", "Cabo Verde"), ("Colombia", "Ghana"),
+]
+
+@st.cache_data
+def load_hiperprior():
+    with open(HIPERPRIOR_PATH, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+@st.cache_data
+def load_resultados_reales():
+    return pd.read_csv(RESULTADOS_REALES_PATH, encoding="utf-8")
+
+def load_resultados_eliminacion():
+    if not os.path.exists(RESULTADOS_ELIM_PATH):
+        return []
+    with open(RESULTADOS_ELIM_PATH, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+def guardar_resultado_eliminacion(registro):
+    datos = load_resultados_eliminacion()
+    datos.append(registro)
+    with open(RESULTADOS_ELIM_PATH, "w", encoding="utf-8") as f:
+        json.dump(datos, f, ensure_ascii=False, indent=2)
+
+def equipos_clasificados():
+    return sorted(load_resultados_reales()["Equipo"].unique())
+
+def calcular_posteriors():
+    """Combina fase de grupos (congelada) + resultados de eliminación registrados
+    y devuelve la posterior (media) de ataque/defensa de cada equipo, más quién
+    sigue vivo en el torneo. El hiperprior (a0,b0,mu_global) nunca se recalcula
+    aquí — viene fijo de hiperprior_bayesiano.json."""
+    hp = load_hiperprior()
+    df_grupos = load_resultados_reales()
+    agg = df_grupos.groupby("Equipo").agg(
+        goles_favor=("Goles_Favor", "sum"),
+        goles_contra=("Goles_Contra", "sum"),
+        partidos=("Goles_Favor", "count"),
+    )
+
+    eliminados = set()
+    for r in load_resultados_eliminacion():
+        for equipo, gf, gc in [
+            (r["equipo_local"], r["goles_local"], r["goles_visitante"]),
+            (r["equipo_visitante"], r["goles_visitante"], r["goles_local"]),
+        ]:
+            if equipo in agg.index:
+                agg.loc[equipo, "goles_favor"] += gf
+                agg.loc[equipo, "goles_contra"] += gc
+                agg.loc[equipo, "partidos"] += 1
+            else:
+                agg.loc[equipo] = [gf, gc, 1]
+        perdedor = r["equipo_local"] if r["ganador"] == r["equipo_visitante"] else r["equipo_visitante"]
+        eliminados.add(perdedor)
+
+    agg["ataque_post"] = (hp["a0_ataque"] + agg["goles_favor"]) / (hp["b0_ataque"] + agg["partidos"])
+    agg["defensa_post"] = (hp["a0_defensa"] + agg["goles_contra"]) / (hp["b0_defensa"] + agg["partidos"])
+    agg["vivo"] = ~agg.index.isin(eliminados)
+    return agg, hp["mu_global"]
+
+def equipos_vivos():
+    posteriors, _ = calcular_posteriors()
+    return sorted(posteriors[posteriors["vivo"]].index.tolist())
+
+def lambda_bayes(equipo_a, equipo_b):
+    posteriors, mu_global = calcular_posteriors()
+    fila_a, fila_b = posteriors.loc[equipo_a], posteriors.loc[equipo_b]
+    lam_a = (fila_a["ataque_post"] * fila_b["defensa_post"]) / mu_global
+    lam_b = (fila_b["ataque_post"] * fila_a["defensa_post"]) / mu_global
+    return lam_a, lam_b
+
+# ═══════════════════════════════════════════════════════════════════════════════
 # SIDEBAR
 # ═══════════════════════════════════════════════════════════════════════════════
 with st.sidebar:
@@ -333,7 +422,7 @@ with st.sidebar:
     page = st.radio(
         "Navegación",
         ["🏆 Dashboard", "⚽ Predictor de Partido", "📊 Análisis de Equipos",
-         "📋 Tabla de Predicciones"],
+         "📋 Tabla de Predicciones", "🎲 Eliminación Directa"],
         label_visibility="collapsed",
     )
 
@@ -815,3 +904,175 @@ elif page == "📋 Tabla de Predicciones":
         file_name="predicciones_wc26_filtered.csv",
         mime="text/csv",
     )
+
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PAGE 5 — ELIMINACIÓN DIRECTA (BAYESIANO)
+# ═══════════════════════════════════════════════════════════════════════════════
+elif page == "🎲 Eliminación Directa":
+
+    st.markdown("# 🎲 Eliminación Directa · Modelo Bayesiano")
+    st.markdown("<span style='color:#8ea3c0'>Poisson-Gamma: la tasa de gol de cada equipo se actualiza con cada resultado real que se registra</span>",
+                unsafe_allow_html=True)
+    st.markdown("")
+
+    tab_reg, tab_post, tab_pred = st.tabs(
+        ["📥 Registrar Resultado", "📊 Posteriors por Equipo", "🔮 Predicción Bayesiana"]
+    )
+
+    # ── Tab 1: registrar resultado real ─────────────────────────────────────────
+    with tab_reg:
+        st.markdown("##### Registrar resultado real de un partido de eliminación directa")
+        st.caption("Los goles capturados son los de tiempo regular + alargue (cuentan para el modelo). "
+                   "Si el marcador queda igualado, se resuelve por penales — eso solo decide quién avanza, no suma goles.")
+
+        ronda_sel = st.selectbox("Ronda", RONDAS_ELIMINACION)
+
+        vivos = equipos_vivos()
+        ya_jugados = {(r["equipo_local"], r["equipo_visitante"]) for r in load_resultados_eliminacion()}
+
+        eq_a, eq_b = None, None
+        if ronda_sel == "Dieciseisavos de Final":
+            opciones_partido = [
+                f"{a} vs {b}" for a, b in BRACKET_R32
+                if (a, b) not in ya_jugados and (b, a) not in ya_jugados
+            ]
+            if not opciones_partido:
+                st.info("✅ Ya se registraron los 16 partidos de dieciseisavos.")
+            else:
+                partido_sel = st.selectbox("Partido (bracket oficial confirmado)", opciones_partido)
+                eq_a, eq_b = partido_sel.split(" vs ")
+        else:
+            if len(vivos) < 2:
+                st.info("Se necesitan al menos 2 equipos vivos para registrar un partido de esta ronda.")
+            else:
+                col1, col2 = st.columns(2)
+                with col1:
+                    eq_a = st.selectbox("Equipo Local", vivos, key="elim_local")
+                with col2:
+                    opciones_b = [t for t in vivos if t != eq_a]
+                    eq_b = st.selectbox("Equipo Visitante", opciones_b, key="elim_visit")
+
+        if eq_a and eq_b:
+            c1, c2 = st.columns(2)
+            with c1:
+                goles_a = st.number_input(f"⚽ Goles {eq_a}", 0, 15, 0, key="goles_a_elim")
+            with c2:
+                goles_b = st.number_input(f"⚽ Goles {eq_b}", 0, 15, 0, key="goles_b_elim")
+
+            penales = False
+            ganador_penales = None
+            if goles_a == goles_b:
+                st.warning("⚠️ Marcador igualado — en eliminación directa se resuelve por penales.")
+                penales = True
+                ganador_penales = st.radio("¿Quién ganó la tanda de penales?", [eq_a, eq_b], horizontal=True)
+
+            if st.button("💾 Guardar resultado", use_container_width=True):
+                ganador = ganador_penales if penales else (eq_a if goles_a > goles_b else eq_b)
+                registro = {
+                    "ronda": ronda_sel,
+                    "equipo_local": eq_a, "equipo_visitante": eq_b,
+                    "goles_local": int(goles_a), "goles_visitante": int(goles_b),
+                    "penales": penales, "ganador_penales": ganador_penales,
+                    "ganador": ganador,
+                    "fecha_registro": datetime.now().isoformat(timespec="seconds"),
+                }
+                guardar_resultado_eliminacion(registro)
+                st.success(
+                    f"Guardado: {eq_a} {goles_a}-{goles_b} {eq_b}"
+                    + (f" (penales: avanza {ganador})" if penales else "")
+                    + f". 🏆 Avanza **{ganador}**."
+                )
+                st.rerun()
+
+        st.markdown("---")
+        st.markdown("##### 📋 Partidos de eliminación registrados")
+        historial = load_resultados_eliminacion()
+        if historial:
+            hist_df = pd.DataFrame(historial)[
+                ["ronda", "equipo_local", "equipo_visitante", "goles_local", "goles_visitante", "penales", "ganador"]
+            ].rename(columns={
+                "ronda": "Ronda", "equipo_local": "Local", "equipo_visitante": "Visitante",
+                "goles_local": "Goles L", "goles_visitante": "Goles V",
+                "penales": "¿Penales?", "ganador": "Avanza",
+            })
+            st.dataframe(hist_df, use_container_width=True, hide_index=True)
+        else:
+            st.caption("Todavía no se ha registrado ningún resultado de eliminación directa.")
+
+    # ── Tab 2: tabla de posteriors ──────────────────────────────────────────────
+    with tab_post:
+        col_btn, col_info = st.columns([1, 3])
+        with col_btn:
+            if st.button("🔄 Actualizar posteriors", use_container_width=True):
+                st.rerun()
+        with col_info:
+            st.caption("Recalcula ataque/defensa de cada equipo con todos los resultados registrados hasta ahora "
+                       "(fase de grupos + eliminación directa).")
+
+        posteriors, mu_global = calcular_posteriors()
+        tabla = posteriors.reset_index().rename(columns={
+            "index": "Equipo", "goles_favor": "Goles Favor", "goles_contra": "Goles Contra",
+            "partidos": "Partidos", "ataque_post": "Ataque (post.)", "defensa_post": "Defensa (post.)",
+        })
+        tabla["Estado"] = tabla["vivo"].map({True: "🟢 Vivo", False: "🔴 Eliminado"})
+        tabla = tabla.drop(columns=["vivo"]).sort_values("Ataque (post.)", ascending=False)
+        tabla["Ataque (post.)"] = tabla["Ataque (post.)"].round(3)
+        tabla["Defensa (post.)"] = tabla["Defensa (post.)"].round(3)
+        st.dataframe(tabla, use_container_width=True, hide_index=True, height=520)
+        st.caption(f"μ_global = {mu_global:.3f} goles/partido · hiperprior congelado desde fase de grupos (32 equipos)")
+
+    # ── Tab 3: predicción bayesiana entre dos equipos vivos ─────────────────────
+    with tab_pred:
+        st.markdown("##### Predicción bayesiana entre dos equipos vivos")
+        vivos = equipos_vivos()
+        if len(vivos) < 2:
+            st.info("Se necesitan al menos 2 equipos vivos para predecir un partido.")
+        else:
+            col1, col2 = st.columns(2)
+            with col1:
+                peq_a = st.selectbox("Equipo A", vivos, key="pred_bayes_a")
+            with col2:
+                opciones_b = [t for t in vivos if t != peq_a]
+                peq_b = st.selectbox("Equipo B", opciones_b, key="pred_bayes_b")
+
+            lam_a, lam_b = lambda_bayes(peq_a, peq_b)
+            P_A, P_E, P_B, winner, scores, mat = analyze_match(lam_a, lam_b, peq_a, peq_b)
+            fl_a, fl_b = FLAGS.get(peq_a, "⚽"), FLAGS.get(peq_b, "⚽")
+
+            top_c1, top_c2, top_c3 = st.columns([1.2, 0.6, 1.2])
+            with top_c1:
+                st.markdown(f"""
+                <div class='team-block' style='border:1px solid rgba(45,212,255,0.2);border-radius:20px;padding:24px'>
+                  <div class='flag-big'>{fl_a}</div>
+                  <div class='team-name' style='font-size:24px'>{peq_a}</div>
+                  <div class='lambda-val' style='font-size:18px'>λ = {lam_a:.3f}</div>
+                  <div style='margin-top:8px;color:#8ea3c0;font-size:13px'>Goles esperados (bayesiano)</div>
+                </div>""", unsafe_allow_html=True)
+            with top_c2:
+                st.markdown(f"""
+                <div style='display:flex;align-items:center;justify-content:center;height:100%'>
+                  <div style='text-align:center'>
+                    <div style='font-size:36px;color:#8ea3c0;font-weight:900'>VS</div>
+                    <div class='winner-badge' style='margin-top:12px;font-size:14px'>🏆 {winner}</div>
+                  </div>
+                </div>""", unsafe_allow_html=True)
+            with top_c3:
+                st.markdown(f"""
+                <div class='team-block' style='border:1px solid rgba(59,130,246,0.2);border-radius:20px;padding:24px'>
+                  <div class='flag-big'>{fl_b}</div>
+                  <div class='team-name' style='font-size:24px'>{peq_b}</div>
+                  <div class='lambda-val' style='font-size:18px'>λ = {lam_b:.3f}</div>
+                  <div style='margin-top:8px;color:#8ea3c0;font-size:13px'>Goles esperados (bayesiano)</div>
+                </div>""", unsafe_allow_html=True)
+
+            st.markdown("")
+            sub_tab1, sub_tab2 = st.tabs(["🎯 Matriz de Marcadores", "📊 Probabilidades"])
+            with sub_tab1:
+                st.plotly_chart(score_matrix_chart(mat, peq_a, peq_b), use_container_width=True)
+                top5 = scores[:5]
+                df_top5 = pd.DataFrame(top5, columns=["Marcador", "Probabilidad"])
+                df_top5["Probabilidad"] = df_top5["Probabilidad"].apply(lambda x: f"{x*100:.2f}%")
+                st.dataframe(df_top5, use_container_width=True, hide_index=True)
+            with sub_tab2:
+                st.plotly_chart(prob_donut(P_A, P_E, P_B, peq_a, peq_b), use_container_width=True)

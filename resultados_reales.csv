@@ -1,0 +1,97 @@
+Fase,Grupo,Jornada,Equipo,Rival,Goles_Favor,Goles_Contra,Resultado
+Grupos,A,1,México,Sudáfrica,2,0,V
+Grupos,A,2,México,Corea del Sur,1,0,V
+Grupos,A,3,México,República Checa,3,0,V
+Grupos,A,1,Sudáfrica,México,0,2,D
+Grupos,A,2,Sudáfrica,República Checa,1,1,E
+Grupos,A,3,Sudáfrica,Corea del Sur,1,0,V
+Grupos,B,2,Suiza,Qatar,1,1,E
+Grupos,B,3,Suiza,Bosnia y Herzegovina,4,1,V
+Grupos,B,1,Suiza,Canadá,2,1,V
+Grupos,B,1,Canadá,Bosnia y Herzegovina,1,1,E
+Grupos,B,2,Canadá,Qatar,6,0,V
+Grupos,B,3,Canadá,Suiza,1,2,D
+Grupos,B,1,Bosnia y Herzegovina,Canadá,1,1,E
+Grupos,B,2,Bosnia y Herzegovina,Suiza,1,4,D
+Grupos,B,3,Bosnia y Herzegovina,Qatar,3,1,V
+Grupos,C,1,Brasil,Marruecos,1,1,E
+Grupos,C,2,Brasil,Haití,3,0,V
+Grupos,C,3,Brasil,Escocia,3,0,V
+Grupos,C,1,Marruecos,Brasil,1,1,E
+Grupos,C,2,Marruecos,Escocia,1,0,V
+Grupos,C,3,Marruecos,Haití,4,2,V
+Grupos,D,1,Estados Unidos,Paraguay,4,1,V
+Grupos,D,2,Estados Unidos,Australia,2,0,V
+Grupos,D,3,Estados Unidos,Turquía,2,3,D
+Grupos,D,1,Australia,Turquía,2,0,V
+Grupos,D,2,Australia,Estados Unidos,0,2,D
+Grupos,D,3,Australia,Paraguay,0,0,E
+Grupos,D,1,Paraguay,Estados Unidos,1,4,D
+Grupos,D,2,Paraguay,Turquía,1,0,V
+Grupos,D,3,Paraguay,Australia,0,0,E
+Grupos,E,1,Alemania,Curazao,7,1,V
+Grupos,E,2,Alemania,Costa de Marfil,2,1,V
+Grupos,E,3,Alemania,Ecuador,1,2,D
+Grupos,E,1,Costa de Marfil,Ecuador,1,0,V
+Grupos,E,2,Costa de Marfil,Alemania,1,2,D
+Grupos,E,3,Costa de Marfil,Curazao,2,0,V
+Grupos,E,1,Ecuador,Costa de Marfil,0,1,D
+Grupos,E,2,Ecuador,Curazao,0,0,E
+Grupos,E,3,Ecuador,Alemania,2,1,V
+Grupos,F,1,Países Bajos,Japón,2,2,E
+Grupos,F,2,Países Bajos,Suecia,5,1,V
+Grupos,F,3,Países Bajos,Túnez,3,1,V
+Grupos,F,1,Japón,Países Bajos,2,2,E
+Grupos,F,2,Japón,Túnez,3,0,V
+Grupos,F,3,Japón,Suecia,1,1,E
+Grupos,F,1,Suecia,Túnez,5,1,V
+Grupos,F,2,Suecia,Países Bajos,1,5,D
+Grupos,F,3,Suecia,Japón,1,1,E
+Grupos,G,1,Bélgica,Egipto,1,1,E
+Grupos,G,2,Bélgica,Irán,0,0,E
+Grupos,G,3,Bélgica,Nueva Zelanda,5,1,V
+Grupos,G,1,Egipto,Bélgica,1,1,E
+Grupos,G,2,Egipto,Nueva Zelanda,3,1,V
+Grupos,G,3,Egipto,Irán,1,1,E
+Grupos,H,1,España,Cabo Verde,0,0,E
+Grupos,H,2,España,Arabia Saudita,4,0,V
+Grupos,H,3,España,Uruguay,1,0,V
+Grupos,H,1,Cabo Verde,España,0,0,E
+Grupos,H,2,Cabo Verde,Uruguay,2,2,E
+Grupos,H,3,Cabo Verde,Arabia Saudita,0,0,E
+Grupos,I,1,Francia,Senegal,3,1,V
+Grupos,I,2,Francia,Irak,3,0,V
+Grupos,I,3,Francia,Noruega,4,1,V
+Grupos,I,1,Noruega,Irak,4,1,V
+Grupos,I,2,Noruega,Senegal,3,2,V
+Grupos,I,3,Noruega,Francia,1,4,D
+Grupos,I,1,Senegal,Francia,1,3,D
+Grupos,I,2,Senegal,Noruega,2,3,D
+Grupos,I,3,Senegal,Irak,5,0,V
+Grupos,J,1,Argentina,Argelia,3,0,V
+Grupos,J,2,Argentina,Austria,2,0,V
+Grupos,J,3,Argentina,Jordania,3,1,V
+Grupos,J,1,Austria,Jordania,3,1,V
+Grupos,J,2,Austria,Argentina,0,2,D
+Grupos,J,3,Austria,Argelia,3,3,E
+Grupos,J,1,Argelia,Argentina,0,3,D
+Grupos,J,2,Argelia,Jordania,2,1,V
+Grupos,J,3,Argelia,Austria,3,3,E
+Grupos,K,1,Portugal,RD Congo,1,1,E
+Grupos,K,2,Portugal,Uzbekistán,5,0,V
+Grupos,K,3,Portugal,Colombia,0,0,E
+Grupos,K,1,Colombia,Uzbekistán,3,1,V
+Grupos,K,2,Colombia,RD Congo,1,0,V
+Grupos,K,3,Colombia,Portugal,0,0,E
+Grupos,K,1,RD Congo,Portugal,1,1,E
+Grupos,K,2,RD Congo,Colombia,0,1,D
+Grupos,K,3,RD Congo,Uzbekistán,3,1,V
+Grupos,L,1,Inglaterra,Croacia,4,2,V
+Grupos,L,2,Inglaterra,Ghana,0,0,E
+Grupos,L,3,Inglaterra,Panamá,2,0,V
+Grupos,L,1,Croacia,Inglaterra,2,4,D
+Grupos,L,2,Croacia,Panamá,1,0,V
+Grupos,L,3,Croacia,Ghana,2,1,V
+Grupos,L,1,Ghana,Panamá,1,0,V
+Grupos,L,2,Ghana,Inglaterra,0,0,E
+Grupos,L,3,Ghana,Croacia,1,2,D
