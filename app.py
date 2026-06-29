@@ -4,6 +4,8 @@ import numpy as np
 import math
 import json
 import os
+import base64
+import requests
 from datetime import datetime
 import plotly.graph_objects as go
 import plotly.express as px
@@ -357,19 +359,68 @@ def load_resultados_eliminacion():
     with open(RESULTADOS_ELIM_PATH, "r", encoding="utf-8") as f:
         return json.load(f)
 
+GITHUB_OWNER = "NataelM"
+GITHUB_REPO = "wc26_app"
+GITHUB_BRANCH = "master"
+
+def _github_token():
+    """Token guardado como secret de Streamlit Cloud (Settings > Secrets > GITHUB_TOKEN).
+    Si no existe (ej. corriendo local), devuelve None y simplemente no se sincroniza."""
+    try:
+        return st.secrets["GITHUB_TOKEN"]
+    except Exception:
+        return None
+
+def sync_resultados_a_github(contenido_json_str, mensaje):
+    """Sube resultados_eliminacion.json al repo de GitHub. Es necesario porque el
+    disco del contenedor de Streamlit Cloud es efímero: cualquier redeploy (que
+    ocurre automáticamente con cada push al repo) clona el repo desde cero y
+    borra lo que solo vivía en el disco local del contenedor anterior."""
+    token = _github_token()
+    if not token:
+        return False, "Sin GITHUB_TOKEN configurado: el resultado solo se guardó localmente y se perderá en el próximo redeploy."
+
+    api_url = f"https://api.github.com/repos/{GITHUB_OWNER}/{GITHUB_REPO}/contents/{RESULTADOS_ELIM_PATH}"
+    headers = {"Authorization": f"Bearer {token}", "Accept": "application/vnd.github+json"}
+    try:
+        r_get = requests.get(api_url, headers=headers, params={"ref": GITHUB_BRANCH}, timeout=10)
+        sha_actual = r_get.json().get("sha") if r_get.status_code == 200 else None
+
+        payload = {
+            "message": mensaje,
+            "content": base64.b64encode(contenido_json_str.encode("utf-8")).decode("utf-8"),
+            "branch": GITHUB_BRANCH,
+        }
+        if sha_actual:
+            payload["sha"] = sha_actual
+
+        r_put = requests.put(api_url, headers=headers, json=payload, timeout=10)
+        if r_put.status_code in (200, 201):
+            return True, "Sincronizado con GitHub — sobrevive a redeploys."
+        return False, f"GitHub respondió {r_put.status_code}: {r_put.text[:200]}"
+    except Exception as e:
+        return False, f"Error sincronizando con GitHub: {e}"
+
 def guardar_resultado_eliminacion(registro):
     datos = load_resultados_eliminacion()
     datos.append(registro)
+    contenido = json.dumps(datos, ensure_ascii=False, indent=2)
     with open(RESULTADOS_ELIM_PATH, "w", encoding="utf-8") as f:
-        json.dump(datos, f, ensure_ascii=False, indent=2)
+        f.write(contenido)
+    mensaje = f"Registrar: {registro['equipo_local']} {registro['goles_local']}-{registro['goles_visitante']} {registro['equipo_visitante']} ({registro['ronda']})"
+    return sync_resultados_a_github(contenido, mensaje)
 
 def eliminar_resultado_eliminacion(indice):
     """Borra un resultado mal registrado (ej. capturado antes de que terminara el partido)."""
     datos = load_resultados_eliminacion()
-    if 0 <= indice < len(datos):
-        datos.pop(indice)
-        with open(RESULTADOS_ELIM_PATH, "w", encoding="utf-8") as f:
-            json.dump(datos, f, ensure_ascii=False, indent=2)
+    if not (0 <= indice < len(datos)):
+        return False, "Índice inválido."
+    eliminado = datos.pop(indice)
+    contenido = json.dumps(datos, ensure_ascii=False, indent=2)
+    with open(RESULTADOS_ELIM_PATH, "w", encoding="utf-8") as f:
+        f.write(contenido)
+    mensaje = f"Eliminar resultado: {eliminado['equipo_local']} vs {eliminado['equipo_visitante']} ({eliminado['ronda']})"
+    return sync_resultados_a_github(contenido, mensaje)
 
 def equipos_clasificados():
     return sorted(load_resultados_reales()["Equipo"].unique())
@@ -985,13 +1036,16 @@ elif page == "🎲 Eliminación Directa":
                     "ganador": ganador,
                     "fecha_registro": datetime.now().isoformat(timespec="seconds"),
                 }
-                guardar_resultado_eliminacion(registro)
+                ok_sync, msg_sync = guardar_resultado_eliminacion(registro)
                 st.success(
                     f"Guardado: {eq_a} {goles_a}-{goles_b} {eq_b}"
                     + (f" (penales: avanza {ganador})" if penales else "")
                     + f". 🏆 Avanza **{ganador}**."
                 )
-                st.rerun()
+                if ok_sync:
+                    st.caption(f"☁️ {msg_sync}")
+                else:
+                    st.warning(f"⚠️ {msg_sync}")
 
         st.markdown("---")
         st.markdown("##### 📋 Partidos de eliminación registrados")
@@ -1015,9 +1069,12 @@ elif page == "🎲 Eliminación Directa":
             sel_borrar = st.selectbox("Resultado a eliminar", opciones_borrar, key="sel_borrar_elim")
             if st.button("🗑️ Eliminar este resultado", use_container_width=True):
                 idx_borrar = int(sel_borrar.split(" · ")[0])
-                eliminar_resultado_eliminacion(idx_borrar)
+                ok_sync, msg_sync = eliminar_resultado_eliminacion(idx_borrar)
                 st.success("Resultado eliminado. El equipo afectado vuelve a estar disponible.")
-                st.rerun()
+                if ok_sync:
+                    st.caption(f"☁️ {msg_sync}")
+                else:
+                    st.warning(f"⚠️ {msg_sync}")
         else:
             st.caption("Todavía no se ha registrado ningún resultado de eliminación directa.")
 

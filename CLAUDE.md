@@ -79,6 +79,18 @@ rounds there's a second, independent model living alongside it in the same `app.
   octavos/cuartos/semifinal/final are *not* hardcoded (the official bracket tree past R32 wasn't
   sourced) — those rounds let the user pick any two living teams manually by design.
 
+### Persistence across Streamlit Cloud redeploys
+
+Streamlit Community Cloud's container disk is ephemeral: any push to the repo triggers an
+auto-redeploy that re-clones the repo from scratch, wiping anything the running app had only
+written to local disk. Since `guardar_resultado_eliminacion`/`eliminar_resultado_eliminacion` write
+to the local `resultados_eliminacion.json`, that alone is not durable — `sync_resultados_a_github`
+also pushes the updated file straight to `GITHUB_OWNER/GITHUB_REPO` (`NataelM/wc26_app`, branch
+`master`) via the GitHub Contents API, so results survive redeploys. This requires a `GITHUB_TOKEN`
+(GitHub PAT with `repo` scope) set as a Streamlit Cloud secret — without it, saves/deletes still
+work locally for that session but `sync_resultados_a_github` returns `(False, ...)` and the UI
+surfaces a warning that the result will be lost on the next redeploy.
+
 ## Requirements / compatibility notes
 
 - Requires `streamlit>=1.32.0` for `st.dataframe(..., hide_index=True)` — older Streamlit
