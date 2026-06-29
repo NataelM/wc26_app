@@ -363,6 +363,14 @@ def guardar_resultado_eliminacion(registro):
     with open(RESULTADOS_ELIM_PATH, "w", encoding="utf-8") as f:
         json.dump(datos, f, ensure_ascii=False, indent=2)
 
+def eliminar_resultado_eliminacion(indice):
+    """Borra un resultado mal registrado (ej. capturado antes de que terminara el partido)."""
+    datos = load_resultados_eliminacion()
+    if 0 <= indice < len(datos):
+        datos.pop(indice)
+        with open(RESULTADOS_ELIM_PATH, "w", encoding="utf-8") as f:
+            json.dump(datos, f, ensure_ascii=False, indent=2)
+
 def equipos_clasificados():
     return sorted(load_resultados_reales()["Equipo"].unique())
 
@@ -997,6 +1005,19 @@ elif page == "🎲 Eliminación Directa":
                 "penales": "¿Penales?", "ganador": "Avanza",
             })
             st.dataframe(hist_df, use_container_width=True, hide_index=True)
+
+            st.markdown("###### 🗑️ Corregir un resultado mal registrado")
+            st.caption("Útil si capturaste un marcador antes de que terminara el partido, o te equivocaste de equipo/marcador.")
+            opciones_borrar = [
+                f"{i} · {r['ronda']} · {r['equipo_local']} {r['goles_local']}-{r['goles_visitante']} {r['equipo_visitante']}"
+                for i, r in enumerate(historial)
+            ]
+            sel_borrar = st.selectbox("Resultado a eliminar", opciones_borrar, key="sel_borrar_elim")
+            if st.button("🗑️ Eliminar este resultado", use_container_width=True):
+                idx_borrar = int(sel_borrar.split(" · ")[0])
+                eliminar_resultado_eliminacion(idx_borrar)
+                st.success("Resultado eliminado. El equipo afectado vuelve a estar disponible.")
+                st.rerun()
         else:
             st.caption("Todavía no se ha registrado ningún resultado de eliminación directa.")
 
