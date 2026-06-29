@@ -924,8 +924,8 @@ elif page == "🎲 Eliminación Directa":
                 unsafe_allow_html=True)
     st.markdown("")
 
-    tab_reg, tab_post, tab_pred = st.tabs(
-        ["📥 Registrar Resultado", "📊 Posteriors por Equipo", "🔮 Predicción Bayesiana"]
+    tab_pred, tab_reg, tab_post = st.tabs(
+        ["🔮 Predicción Bayesiana", "📥 Registrar Resultado", "📊 Posteriors por Equipo"]
     )
 
     # ── Tab 1: registrar resultado real ─────────────────────────────────────────
