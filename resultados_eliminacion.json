@@ -9,5 +9,16 @@
     "ganador_penales": null,
     "ganador": "Brasil",
     "fecha_registro": "2026-06-29T19:57:57"
+  },
+  {
+    "ronda": "Dieciseisavos de Final",
+    "equipo_local": "Sudáfrica",
+    "equipo_visitante": "Canadá",
+    "goles_local": 0,
+    "goles_visitante": 1,
+    "penales": false,
+    "ganador_penales": null,
+    "ganador": "Canadá",
+    "fecha_registro": "2026-06-29T20:00:15"
   }
 ]
