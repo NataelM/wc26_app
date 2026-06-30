@@ -31,5 +31,16 @@
     "ganador_penales": "Paraguay",
     "ganador": "Paraguay",
     "fecha_registro": "2026-06-30T04:03:36"
+  },
+  {
+    "ronda": "Dieciseisavos de Final",
+    "equipo_local": "Países Bajos",
+    "equipo_visitante": "Marruecos",
+    "goles_local": 1,
+    "goles_visitante": 1,
+    "penales": true,
+    "ganador_penales": "Marruecos",
+    "ganador": "Marruecos",
+    "fecha_registro": "2026-06-30T04:04:03"
   }
 ]
