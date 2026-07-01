@@ -450,8 +450,10 @@ def calcular_posteriors():
         perdedor = r["equipo_local"] if r["ganador"] == r["equipo_visitante"] else r["equipo_visitante"]
         eliminados.add(perdedor)
 
-    agg["ataque_post"] = agg["goles_favor"] / agg["partidos"]
-    agg["defensa_post"] = agg["goles_contra"] / agg["partidos"]
+    # +0.5 es el prior de Jeffreys para Poisson: evita posteriors en cero
+    # cuando un equipo no anotó o no recibió goles (ej. México/España con 0 concedidos).
+    agg["ataque_post"] = (agg["goles_favor"] + 0.5) / (agg["partidos"] + 0.5)
+    agg["defensa_post"] = (agg["goles_contra"] + 0.5) / (agg["partidos"] + 0.5)
     agg["vivo"] = ~agg.index.isin(eliminados)
     return agg, mu_global
 
