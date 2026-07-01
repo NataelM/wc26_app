@@ -64,5 +64,16 @@
     "ganador_penales": null,
     "ganador": "Francia",
     "fecha_registro": "2026-07-01T15:54:05"
+  },
+  {
+    "ronda": "Dieciseisavos de Final",
+    "equipo_local": "México",
+    "equipo_visitante": "Ecuador",
+    "goles_local": 2,
+    "goles_visitante": 0,
+    "penales": false,
+    "ganador_penales": null,
+    "ganador": "México",
+    "fecha_registro": "2026-07-01T15:54:13"
   }
 ]
