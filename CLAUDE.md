@@ -62,22 +62,24 @@ rounds there's a second, independent model living alongside it in the same `app.
   writes it to `hiperprior_bayesiano.json`. This hyperprior is computed **once** and frozen for the
   rest of the tournament — re-run this notebook only if you want to rebuild the reference population
   from scratch, not after every knockout match.
-- **`hiperprior_bayesiano.json`** — the frozen hyperprior consumed by `app.py` (`load_hiperprior`).
+- **`hiperprior_bayesiano.json`** — documentación de referencia; ya **no es leído por `app.py`**.
+  Los parámetros se derivaban de un Empirical Bayes global, pero se reemplazó por un prior
+  implícito por equipo (ver `calcular_posteriors()`).
 - **`resultados_eliminacion.json`** — append-only log of real knockout results entered through the
   app's "🎲 Eliminación Directa" page (`guardar_resultado_eliminacion`). Starts as `[]`.
-- **`calcular_posteriors()`** in `app.py` is the actual online-update step: it sums
-  `resultados_reales.csv` + `resultados_eliminacion.json` per team and applies the closed-form
-  Gamma-Poisson posterior mean `(a0 + goles) / (b0 + partidos)` — no retraining, just arithmetic.
-  Each newly registered match shifts the posterior of exactly the two teams involved; the hyperprior
-  itself is never touched here. `equipos_vivos()` derives who's still alive by walking the same JSON
-  log for losers (knockout = single elimination, so a team's last recorded loss removes it).
-  Penalty-shootout winners are tracked via the `ganador_penales` field but penalty goals are never
-  added to the goal counts — only regulation/extra-time goals feed the Poisson rate.
-  This whole subsystem reuses `analyze_match`/`score_matrix_chart`/`prob_donut`/`FLAGS` from the
-  group-stage model rather than redefining its own scoreline-matrix plumbing.
+- **`calcular_posteriors()`** in `app.py` is the actual online-update step: it aggregates
+  `resultados_reales.csv` (group stage) per team, then adds goals from `resultados_eliminacion.json`
+  (knockout results) to the same counters. The posterior rate is simply
+  `goles_totales / partidos_totales` — each team's group-stage data acts as its own implicit prior,
+  no global shrinkage. `mu_global` is computed live from the CSV as the mean group-stage goals per
+  match (used to normalize lambdas). `equipos_vivos()` derives who's still alive by walking the
+  same JSON log for losers (knockout = single elimination). Penalty-shootout winners are tracked via
+  `ganador_penales` but penalty goals are never counted — only regulation/extra-time goals feed the
+  rate. This subsystem reuses `analyze_match`/`score_matrix_chart`/`prob_donut`/`FLAGS` from the
+  group-stage model.
 - `BRACKET_R32` in `app.py` hardcodes the confirmed Round-of-32 matchups; pairings for
-  octavos/cuartos/semifinal/final are *not* hardcoded (the official bracket tree past R32 wasn't
-  sourced) — those rounds let the user pick any two living teams manually by design.
+  octavos/cuartos/semifinal/final are *not* hardcoded — those rounds let the user pick any two
+  living teams manually by design.
 
 ### Persistence across Streamlit Cloud redeploys
 

@@ -330,7 +330,6 @@ def top_winners(df):
 # ═══════════════════════════════════════════════════════════════════════════════
 # BAYESIAN MODEL — Poisson-Gamma para eliminación directa
 # ═══════════════════════════════════════════════════════════════════════════════
-HIPERPRIOR_PATH = "hiperprior_bayesiano.json"
 RESULTADOS_REALES_PATH = "resultados_reales.csv"
 RESULTADOS_ELIM_PATH = "resultados_eliminacion.json"
 
@@ -343,11 +342,6 @@ BRACKET_R32 = [
     ("Bélgica", "Senegal"), ("Estados Unidos", "Bosnia y Herzegovina"), ("España", "Austria"), ("Portugal", "Croacia"),
     ("Suiza", "Argelia"), ("Australia", "Egipto"), ("Argentina", "Cabo Verde"), ("Colombia", "Ghana"),
 ]
-
-@st.cache_data
-def load_hiperprior():
-    with open(HIPERPRIOR_PATH, "r", encoding="utf-8") as f:
-        return json.load(f)
 
 @st.cache_data
 def load_resultados_reales():
@@ -426,17 +420,20 @@ def equipos_clasificados():
     return sorted(load_resultados_reales()["Equipo"].unique())
 
 def calcular_posteriors():
-    """Combina fase de grupos (congelada) + resultados de eliminación registrados
-    y devuelve la posterior (media) de ataque/defensa de cada equipo, más quién
-    sigue vivo en el torneo. El hiperprior (a0,b0,mu_global) nunca se recalcula
-    aquí — viene fijo de hiperprior_bayesiano.json."""
-    hp = load_hiperprior()
+    """Combina fase de grupos + resultados de eliminación y devuelve la tasa
+    posterior de ataque/defensa de cada equipo, más quién sigue vivo.
+
+    Prior implícito por equipo: sus propios goles de fase de grupos (no un
+    hiperprior global). La tasa posterior es goles_totales / partidos_totales,
+    acumulando grupos + eliminación directa en el mismo conteo.
+    mu_global se calcula en vivo desde resultados_reales.csv."""
     df_grupos = load_resultados_reales()
     agg = df_grupos.groupby("Equipo").agg(
         goles_favor=("Goles_Favor", "sum"),
         goles_contra=("Goles_Contra", "sum"),
         partidos=("Goles_Favor", "count"),
     )
+    mu_global = agg["goles_favor"].sum() / agg["partidos"].sum()
 
     eliminados = set()
     for r in load_resultados_eliminacion():
@@ -453,10 +450,10 @@ def calcular_posteriors():
         perdedor = r["equipo_local"] if r["ganador"] == r["equipo_visitante"] else r["equipo_visitante"]
         eliminados.add(perdedor)
 
-    agg["ataque_post"] = (hp["a0_ataque"] + agg["goles_favor"]) / (hp["b0_ataque"] + agg["partidos"])
-    agg["defensa_post"] = (hp["a0_defensa"] + agg["goles_contra"]) / (hp["b0_defensa"] + agg["partidos"])
+    agg["ataque_post"] = agg["goles_favor"] / agg["partidos"]
+    agg["defensa_post"] = agg["goles_contra"] / agg["partidos"]
     agg["vivo"] = ~agg.index.isin(eliminados)
-    return agg, hp["mu_global"]
+    return agg, mu_global
 
 def equipos_vivos():
     posteriors, _ = calcular_posteriors()

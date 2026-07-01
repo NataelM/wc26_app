@@ -1,9 +1,9 @@
 {
-  "a0_ataque": 219.78681506849364,
-  "b0_ataque": 115.93150684931531,
-  "a0_defensa": 11.70878998815165,
-  "b0_defensa": 11.129146919431273,
+  "_nota": "Este archivo ya no es leído por app.py. Los parámetros por equipo se derivan en vivo desde resultados_reales.csv dentro de calcular_posteriors().",
+  "enfoque": "prior implícito por equipo — goles de fase de grupos como punto de partida, sin shrinkage global",
+  "formula_posterior": "E[theta_i] = goles_totales_i / partidos_totales_i  (grupos + eliminacion directa)",
   "mu_global": 1.8958333333333335,
+  "mu_global_fuente": "media de goles_favor por partido sobre los 32 clasificados en fase de grupos",
   "gol_max": 7,
   "n_equipos_base": 32,
   "fuente": "resultados_reales.csv (fase de grupos, 32 clasificados a dieciseisavos)",
