@@ -75,5 +75,16 @@
     "ganador_penales": null,
     "ganador": "México",
     "fecha_registro": "2026-07-01T15:54:13"
+  },
+  {
+    "ronda": "Dieciseisavos de Final",
+    "equipo_local": "Inglaterra",
+    "equipo_visitante": "RD Congo",
+    "goles_local": 2,
+    "goles_visitante": 1,
+    "penales": false,
+    "ganador_penales": null,
+    "ganador": "Inglaterra",
+    "fecha_registro": "2026-07-01T18:04:43"
   }
 ]
