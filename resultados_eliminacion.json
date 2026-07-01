@@ -42,5 +42,16 @@
     "ganador_penales": "Marruecos",
     "ganador": "Marruecos",
     "fecha_registro": "2026-06-30T04:04:03"
+  },
+  {
+    "ronda": "Dieciseisavos de Final",
+    "equipo_local": "Costa de Marfil",
+    "equipo_visitante": "Noruega",
+    "goles_local": 1,
+    "goles_visitante": 2,
+    "penales": false,
+    "ganador_penales": null,
+    "ganador": "Noruega",
+    "fecha_registro": "2026-07-01T15:53:47"
   }
 ]
