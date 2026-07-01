@@ -53,5 +53,16 @@
     "ganador_penales": null,
     "ganador": "Noruega",
     "fecha_registro": "2026-07-01T15:53:47"
+  },
+  {
+    "ronda": "Dieciseisavos de Final",
+    "equipo_local": "Francia",
+    "equipo_visitante": "Suecia",
+    "goles_local": 3,
+    "goles_visitante": 0,
+    "penales": false,
+    "ganador_penales": null,
+    "ganador": "Francia",
+    "fecha_registro": "2026-07-01T15:54:05"
   }
 ]
