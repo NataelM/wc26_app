@@ -97,5 +97,16 @@
     "ganador_penales": null,
     "ganador": "Bélgica",
     "fecha_registro": "2026-07-02T03:53:23"
+  },
+  {
+    "ronda": "Dieciseisavos de Final",
+    "equipo_local": "Estados Unidos",
+    "equipo_visitante": "Bosnia y Herzegovina",
+    "goles_local": 2,
+    "goles_visitante": 0,
+    "penales": false,
+    "ganador_penales": null,
+    "ganador": "Estados Unidos",
+    "fecha_registro": "2026-07-02T03:53:42"
   }
 ]
