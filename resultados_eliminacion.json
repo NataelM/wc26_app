@@ -86,5 +86,16 @@
     "ganador_penales": null,
     "ganador": "Inglaterra",
     "fecha_registro": "2026-07-01T18:04:43"
+  },
+  {
+    "ronda": "Dieciseisavos de Final",
+    "equipo_local": "Bélgica",
+    "equipo_visitante": "Senegal",
+    "goles_local": 3,
+    "goles_visitante": 2,
+    "penales": false,
+    "ganador_penales": null,
+    "ganador": "Bélgica",
+    "fecha_registro": "2026-07-02T03:53:23"
   }
 ]
