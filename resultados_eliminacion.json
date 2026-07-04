@@ -130,5 +130,16 @@
     "ganador_penales": null,
     "ganador": "Portugal",
     "fecha_registro": "2026-07-04T00:53:12"
+  },
+  {
+    "ronda": "Dieciseisavos de Final",
+    "equipo_local": "Suiza",
+    "equipo_visitante": "Argelia",
+    "goles_local": 2,
+    "goles_visitante": 0,
+    "penales": false,
+    "ganador_penales": null,
+    "ganador": "Suiza",
+    "fecha_registro": "2026-07-04T00:53:28"
   }
 ]
