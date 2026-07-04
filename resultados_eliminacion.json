@@ -163,5 +163,16 @@
     "ganador_penales": null,
     "ganador": "Argentina",
     "fecha_registro": "2026-07-04T00:54:41"
+  },
+  {
+    "ronda": "Dieciseisavos de Final",
+    "equipo_local": "Colombia",
+    "equipo_visitante": "Ghana",
+    "goles_local": 1,
+    "goles_visitante": 0,
+    "penales": false,
+    "ganador_penales": null,
+    "ganador": "Colombia",
+    "fecha_registro": "2026-07-04T04:37:58"
   }
 ]
