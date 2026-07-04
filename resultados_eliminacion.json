@@ -108,5 +108,16 @@
     "ganador_penales": null,
     "ganador": "Estados Unidos",
     "fecha_registro": "2026-07-02T03:53:42"
+  },
+  {
+    "ronda": "Dieciseisavos de Final",
+    "equipo_local": "España",
+    "equipo_visitante": "Austria",
+    "goles_local": 3,
+    "goles_visitante": 0,
+    "penales": false,
+    "ganador_penales": null,
+    "ganador": "España",
+    "fecha_registro": "2026-07-04T00:52:41"
   }
 ]
