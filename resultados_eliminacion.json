@@ -119,5 +119,16 @@
     "ganador_penales": null,
     "ganador": "España",
     "fecha_registro": "2026-07-04T00:52:41"
+  },
+  {
+    "ronda": "Dieciseisavos de Final",
+    "equipo_local": "Portugal",
+    "equipo_visitante": "Croacia",
+    "goles_local": 2,
+    "goles_visitante": 1,
+    "penales": false,
+    "ganador_penales": null,
+    "ganador": "Portugal",
+    "fecha_registro": "2026-07-04T00:53:12"
   }
 ]
