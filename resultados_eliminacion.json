@@ -141,5 +141,16 @@
     "ganador_penales": null,
     "ganador": "Suiza",
     "fecha_registro": "2026-07-04T00:53:28"
+  },
+  {
+    "ronda": "Dieciseisavos de Final",
+    "equipo_local": "Australia",
+    "equipo_visitante": "Egipto",
+    "goles_local": 1,
+    "goles_visitante": 1,
+    "penales": true,
+    "ganador_penales": "Egipto",
+    "ganador": "Egipto",
+    "fecha_registro": "2026-07-04T00:54:21"
   }
 ]
