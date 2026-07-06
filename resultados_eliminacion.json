@@ -207,5 +207,16 @@
     "ganador_penales": null,
     "ganador": "Noruega",
     "fecha_registro": "2026-07-06T03:10:14"
+  },
+  {
+    "ronda": "Octavos de Final",
+    "equipo_local": "México",
+    "equipo_visitante": "Inglaterra",
+    "goles_local": 2,
+    "goles_visitante": 3,
+    "penales": false,
+    "ganador_penales": null,
+    "ganador": "Inglaterra",
+    "fecha_registro": "2026-07-06T03:10:59"
   }
 ]
