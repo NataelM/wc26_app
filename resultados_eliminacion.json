@@ -196,5 +196,16 @@
     "ganador_penales": null,
     "ganador": "Francia",
     "fecha_registro": "2026-07-06T03:09:33"
+  },
+  {
+    "ronda": "Octavos de Final",
+    "equipo_local": "Brasil",
+    "equipo_visitante": "Noruega",
+    "goles_local": 1,
+    "goles_visitante": 2,
+    "penales": false,
+    "ganador_penales": null,
+    "ganador": "Noruega",
+    "fecha_registro": "2026-07-06T03:10:14"
   }
 ]
