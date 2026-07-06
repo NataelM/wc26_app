@@ -185,5 +185,16 @@
     "ganador_penales": null,
     "ganador": "Marruecos",
     "fecha_registro": "2026-07-04T20:04:48"
+  },
+  {
+    "ronda": "Octavos de Final",
+    "equipo_local": "Paraguay",
+    "equipo_visitante": "Francia",
+    "goles_local": 0,
+    "goles_visitante": 1,
+    "penales": false,
+    "ganador_penales": null,
+    "ganador": "Francia",
+    "fecha_registro": "2026-07-06T03:09:33"
   }
 ]
