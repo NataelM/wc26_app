@@ -251,5 +251,16 @@
     "ganador_penales": null,
     "ganador": "Argentina",
     "fecha_registro": "2026-07-07T19:38:00"
+  },
+  {
+    "ronda": "Octavos de Final",
+    "equipo_local": "Suiza",
+    "equipo_visitante": "Colombia",
+    "goles_local": 0,
+    "goles_visitante": 0,
+    "penales": true,
+    "ganador_penales": "Suiza",
+    "ganador": "Suiza",
+    "fecha_registro": "2026-07-07T22:57:00"
   }
 ]
