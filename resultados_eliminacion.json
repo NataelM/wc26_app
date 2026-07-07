@@ -218,5 +218,16 @@
     "ganador_penales": null,
     "ganador": "Inglaterra",
     "fecha_registro": "2026-07-06T03:10:59"
+  },
+  {
+    "ronda": "Octavos de Final",
+    "equipo_local": "Estados Unidos",
+    "equipo_visitante": "Bélgica",
+    "goles_local": 1,
+    "goles_visitante": 4,
+    "penales": false,
+    "ganador_penales": null,
+    "ganador": "Bélgica",
+    "fecha_registro": "2026-07-07T16:39:07"
   }
 ]
