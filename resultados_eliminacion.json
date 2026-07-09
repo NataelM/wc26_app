@@ -262,5 +262,16 @@
     "ganador_penales": null,
     "ganador": "Argentina",
     "fecha_registro": "2026-07-09T23:12:08"
+  },
+  {
+    "ronda": "Cuartos de Final",
+    "equipo_local": "Francia",
+    "equipo_visitante": "Marruecos",
+    "goles_local": 2,
+    "goles_visitante": 0,
+    "penales": false,
+    "ganador_penales": null,
+    "ganador": "Francia",
+    "fecha_registro": "2026-07-09T23:13:06"
   }
 ]
