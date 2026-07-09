@@ -251,5 +251,16 @@
     "ganador_penales": "Suiza",
     "ganador": "Suiza",
     "fecha_registro": "2026-07-07T22:57:00"
+  },
+  {
+    "ronda": "Cuartos de Final",
+    "equipo_local": "Argentina",
+    "equipo_visitante": "Egipto",
+    "goles_local": 3,
+    "goles_visitante": 2,
+    "penales": false,
+    "ganador_penales": null,
+    "ganador": "Argentina",
+    "fecha_registro": "2026-07-09T23:11:09"
   }
 ]
