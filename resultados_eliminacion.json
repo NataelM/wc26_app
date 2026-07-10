@@ -273,5 +273,16 @@
     "ganador_penales": null,
     "ganador": "Francia",
     "fecha_registro": "2026-07-09T23:13:06"
+  },
+  {
+    "ronda": "Cuartos de Final",
+    "equipo_local": "España",
+    "equipo_visitante": "Bélgica",
+    "goles_local": 2,
+    "goles_visitante": 1,
+    "penales": false,
+    "ganador_penales": null,
+    "ganador": "España",
+    "fecha_registro": "2026-07-10T21:44:34"
   }
 ]
