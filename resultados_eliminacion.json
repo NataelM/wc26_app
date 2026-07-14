@@ -295,5 +295,16 @@
     "ganador_penales": null,
     "ganador": "Argentina",
     "fecha_registro": "2026-07-14T18:29:04"
+  },
+  {
+    "ronda": "Cuartos de Final",
+    "equipo_local": "Inglaterra",
+    "equipo_visitante": "Noruega",
+    "goles_local": 2,
+    "goles_visitante": 1,
+    "penales": false,
+    "ganador_penales": null,
+    "ganador": "Inglaterra",
+    "fecha_registro": "2026-07-14T18:29:40"
   }
 ]
