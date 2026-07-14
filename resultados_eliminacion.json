@@ -284,5 +284,16 @@
     "ganador_penales": null,
     "ganador": "España",
     "fecha_registro": "2026-07-10T21:44:34"
+  },
+  {
+    "ronda": "Cuartos de Final",
+    "equipo_local": "Argentina",
+    "equipo_visitante": "Suiza",
+    "goles_local": 3,
+    "goles_visitante": 1,
+    "penales": false,
+    "ganador_penales": null,
+    "ganador": "Argentina",
+    "fecha_registro": "2026-07-14T18:29:04"
   }
 ]
