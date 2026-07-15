@@ -306,5 +306,16 @@
     "ganador_penales": null,
     "ganador": "Inglaterra",
     "fecha_registro": "2026-07-14T18:29:40"
+  },
+  {
+    "ronda": "Semifinal",
+    "equipo_local": "España",
+    "equipo_visitante": "Francia",
+    "goles_local": 2,
+    "goles_visitante": 0,
+    "penales": false,
+    "ganador_penales": null,
+    "ganador": "España",
+    "fecha_registro": "2026-07-15T15:37:10"
   }
 ]
